@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub PR Commenter",
+  "version": "1.0",
+  "description": "Add predefined comments to GitHub PRs.",
+  "permissions": ["activeTab", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*/*/pull/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_icon": "icon.png"
+  }
+}
