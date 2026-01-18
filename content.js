@@ -34,15 +34,23 @@ function insertDropdownButton() {
   dropdownButton.id = 'comment-dropdown-button';
   dropdownButton.innerHTML = 'Add Comment <span class="dropdown-caret"></span>';  // Chevron here
   dropdownButton.classList.add('btn', 'btn-sm', 'btn-primary');
-  dropdownButton.style.marginLeft = '8px';
 
   // Detect GitHub theme based on the <html> attribute
   const isGitHubDarkMode = document.documentElement.getAttribute('data-color-mode') === 'dark';
+
+  // Create wrapper container for proper positioning
+  const wrapper = document.createElement('div');
+  wrapper.style.position = 'relative';
+  wrapper.style.display = 'inline-block';
+  wrapper.style.marginLeft = '8px';
 
   // Create dropdown menu
   const dropdownMenu = document.createElement('div');
   dropdownMenu.classList.add('dropdown-menu');
   dropdownMenu.style.position = 'absolute';
+  dropdownMenu.style.top = '100%';
+  dropdownMenu.style.left = '0';
+  dropdownMenu.style.marginTop = '4px';
   dropdownMenu.style.display = 'none';
   dropdownMenu.style.padding = '4px 0';
   dropdownMenu.style.width = '200px';
@@ -107,16 +115,10 @@ function insertDropdownButton() {
     dropdownMenu.style.display = 'none';
   });
 
-  // Insert button and dropdown
-  header.appendChild(dropdownButton);
-  header.appendChild(dropdownMenu);
-
-  // Position dropdown below the button
-  dropdownButton.addEventListener('click', () => {
-    const rect = dropdownButton.getBoundingClientRect();
-    dropdownMenu.style.top = `${rect.bottom + window.scrollY}px`;
-    dropdownMenu.style.left = `${rect.left + window.scrollX}px`;
-  });
+  // Insert button and dropdown into wrapper, then append wrapper to header
+  wrapper.appendChild(dropdownButton);
+  wrapper.appendChild(dropdownMenu);
+  header.appendChild(wrapper);
 }
 
 // Observe DOM changes to handle dynamic GitHub loading
